@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
@@ -49,19 +50,59 @@ export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
 
 // ###########################################################
 
-function loginUser(dispatch, login, password, history, setIsLoading, setError) {
+async function loginUser(dispatch, login, password, history, setIsLoading, setError) {
   setError(false);
   setIsLoading(true);
 
   if (!!login && !!password) {
-    setTimeout(() => {
-      localStorage.setItem('id_token', 1)
-      setError(null)
-      setIsLoading(false)
-      dispatch({ type: 'LOGIN_SUCCESS' })
+    const loginReqConfig = {
+      method: 'post',
+      url: 'http://localhost:4444/api/v1/auth/signin',
+      auth: {
+        username: login,
+        password
+      }
+    }
 
-      history.push('/app/dashboard')
-    }, 2000);
+    let token;
+    
+    try {
+      const {data} = await axios(loginReqConfig);
+      token = data.token;
+    } catch (error) {
+      console.log(error);
+      // dispatch({ type: "LOGIN_FAILURE" });
+      setError(true);
+      setIsLoading(false);
+    }
+    
+    const adminVerifyReqConfig = {
+      method: 'post',
+      url: 'http://localhost:4444/api/v1/auth/adminverify',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+    if (token) {
+      try {
+        console.log('I am called but the verification failed')
+        const {data} = await axios(adminVerifyReqConfig);
+        if (!!data) {
+          sessionStorage.setItem('id_token', token)
+          setError(null)
+          setIsLoading(false)
+          dispatch({ type: 'LOGIN_SUCCESS' })
+          history.push('/app/dashboard')
+        }
+      } catch (error) {
+        console.log(error);
+        // dispatch({ type: "LOGIN_FAILURE" });
+        setError(true);
+        setIsLoading(false);
+      }
+    }
+
   } else {
     dispatch({ type: "LOGIN_FAILURE" });
     setError(true);
