@@ -27,7 +27,7 @@ export default makeStyles(theme => ({
     },
   },
   logotypeImage: {
-    width: 165,
+    width: '50%',
     marginBottom: theme.spacing(4),
   },
   logotypeText: {
