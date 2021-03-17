@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -7,8 +7,8 @@ import {
   Menu,
   MenuItem,
   Fab,
-  Link
-} from "@material-ui/core";
+  // Link,
+} from '@material-ui/core';
 import {
   Menu as MenuIcon,
   MailOutline as MailIcon,
@@ -17,75 +17,75 @@ import {
   Search as SearchIcon,
   Send as SendIcon,
   ArrowBack as ArrowBackIcon,
-} from "@material-ui/icons";
-import classNames from "classnames";
+} from '@material-ui/icons';
+import classNames from 'classnames';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // components
-import { Badge, Typography, Button } from "../Wrappers";
-import Notification from "../Notification/Notification";
-import UserAvatar from "../UserAvatar/UserAvatar";
+import { Badge, Typography } from '../Wrappers';
+import Notification from '../Notification/Notification';
+import UserAvatar from '../UserAvatar/UserAvatar';
 
 // context
 import {
   useLayoutState,
   useLayoutDispatch,
   toggleSidebar,
-} from "../../context/LayoutContext";
-import { useUserDispatch, signOut } from "../../context/UserContext";
+} from '../../context/LayoutContext';
+import { useUserDispatch, signOut } from '../../context/UserContext';
 
 const messages = [
   {
     id: 0,
-    variant: "warning",
-    name: "Jane Hew",
-    message: "Hey! How is it going?",
-    time: "9:32",
+    variant: 'warning',
+    name: 'Jane Hew',
+    message: 'Hey! How is it going?',
+    time: '9:32',
   },
   {
     id: 1,
-    variant: "success",
-    name: "Lloyd Brown",
-    message: "Check out my new Dashboard",
-    time: "9:18",
+    variant: 'success',
+    name: 'Lloyd Brown',
+    message: 'Check out my new Dashboard',
+    time: '9:18',
   },
   {
     id: 2,
-    variant: "primary",
-    name: "Mark Winstein",
-    message: "I want rearrange the appointment",
-    time: "9:15",
+    variant: 'primary',
+    name: 'Mark Winstein',
+    message: 'I want rearrange the appointment',
+    time: '9:15',
   },
   {
     id: 3,
-    variant: "secondary",
-    name: "Liana Dutti",
-    message: "Good news from sale department",
-    time: "9:09",
+    variant: 'secondary',
+    name: 'Liana Dutti',
+    message: 'Good news from sale department',
+    time: '9:09',
   },
 ];
 
 const notifications = [
-  { id: 0, color: "warning", message: "Check out this awesome ticket" },
+  { id: 0, color: 'warning', message: 'Check out this awesome ticket' },
   {
     id: 1,
-    color: "success",
-    type: "info",
-    message: "What is the best way to get ...",
+    color: 'success',
+    type: 'info',
+    message: 'What is the best way to get ...',
   },
   {
     id: 2,
-    color: "secondary",
-    type: "notification",
-    message: "This is just a simple notification",
+    color: 'secondary',
+    type: 'notification',
+    message: 'This is just a simple notification',
   },
   {
     id: 3,
-    color: "primary",
-    type: "e-commerce",
-    message: "12 new orders has arrived today",
+    color: 'primary',
+    type: 'e-commerce',
+    message: '12 new orders has arrived today',
   },
 ];
 
@@ -137,10 +137,9 @@ export default function Header(props) {
           )}
         </IconButton>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          React Material Admin
+          Peng&apos;s Admin Portal
         </Typography>
         <div className={classes.grow} />
-        <Button component={Link} href="https://flatlogic.com/templates/react-material-admin-full" variant={"outlined"} color={"secondary"} className={classes.purchaseBtn}>Unlock full version</Button>
         <div
           className={classNames(classes.search, {
             [classes.searchFocused]: isSearchOpen,
@@ -288,7 +287,7 @@ export default function Header(props) {
           disableAutoFocusItem
         >
           <div className={classes.profileMenuUser}>
-            <Typography variant="h4" weight="medium">
+            {/* <Typography variant="h4" weight="medium">
               John Smith
             </Typography>
             <Typography
@@ -298,7 +297,7 @@ export default function Header(props) {
               href="https://flatlogic.com"
             >
               Flalogic.com
-            </Typography>
+            </Typography> */}
           </div>
           <MenuItem
             className={classNames(
@@ -338,3 +337,8 @@ export default function Header(props) {
     </AppBar>
   );
 }
+
+import PropTypes from 'prop-types';
+Header.propTypes = {
+  history: PropTypes.object,
+};

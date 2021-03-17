@@ -1,17 +1,33 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Paper,
   IconButton,
   Menu,
   MenuItem,
   Typography,
-} from "@material-ui/core";
-import { MoreVert as MoreIcon } from "@material-ui/icons";
-import classnames from "classnames";
+} from '@material-ui/core';
+import { MoreVert as MoreIcon } from '@material-ui/icons';
+import classnames from 'classnames';
 
 // styles
-import useStyles from "./styles";
-
+import useStyles from './styles';
+import PropTypes from 'prop-types';
+Widget.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+  ]),
+  title: PropTypes.string,
+  noBodyPadding: PropTypes.bool,
+  bodyClass: PropTypes.string,
+  disableWidgetMenu: PropTypes.bool,
+  header: PropTypes.object,
+  noHeaderPadding: PropTypes.bool,
+  headerClass: PropTypes.string,
+  style: PropTypes.object,
+  noWidgetShadow: PropTypes.bool,
+};
+  
 export default function Widget({
   children,
   title,
@@ -34,11 +50,11 @@ export default function Widget({
   return (
     <div className={classes.widgetWrapper} style={style && {...style}}>
       <Paper className={classes.paper} classes={{ root: classnames(classes.widgetRoot, {
-        [classes.noWidgetShadow]: noWidgetShadow
-        }) }}>
+        [classes.noWidgetShadow]: noWidgetShadow,
+      }) }}>
         <div className={classnames(classes.widgetHeader, {
           [classes.noPadding]: noHeaderPadding,
-          [headerClass]: headerClass
+          [headerClass]: headerClass,
         })}>
           {header ? (
             header

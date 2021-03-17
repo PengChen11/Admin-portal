@@ -1,0 +1,6 @@
+{
+  "name": "ArticlePost",
+  "version": "0.0.0",
+  "main": "ArticlePost.js",
+  "private": true
+}

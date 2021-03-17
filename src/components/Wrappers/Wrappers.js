@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import {
   withStyles,
   Badge as BadgeBase,
   Typography as TypographyBase,
   Button as ButtonBase,
-} from "@material-ui/core";
-import { useTheme, makeStyles } from "@material-ui/styles";
-import classnames from "classnames";
+} from '@material-ui/core';
+import { useTheme, makeStyles } from '@material-ui/styles';
+import classnames from 'classnames';
 
 // styles
 var useStyles = makeStyles(theme => ({
@@ -16,6 +16,13 @@ var useStyles = makeStyles(theme => ({
     minWidth: 16,
   },
 }));
+
+import PropTypes from 'prop-types';
+Badge.propTypes = {
+  children: PropTypes.object,
+  colorBrightness: PropTypes.string,
+  color: PropTypes.string,
+};
 
 function Badge({ children, colorBrightness, color, ...props }) {
   var classes = useStyles();
@@ -42,6 +49,20 @@ function Badge({ children, colorBrightness, color, ...props }) {
   );
 }
 
+Typography.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+    PropTypes.number,
+  ]),
+  colorBrightness: PropTypes.string,
+  color: PropTypes.string,
+  weight: PropTypes.string,
+  size: PropTypes.string,
+  variant: PropTypes.string,
+
+};
+
 function Typography({
   children,
   weight,
@@ -66,6 +87,18 @@ function Typography({
   );
 }
 
+Button.propTypes = {
+  children: PropTypes.object,
+  // colorBrightness: PropTypes.string,
+  color: PropTypes.string,
+  className: PropTypes.string,
+  select: PropTypes.string,
+  // weight: PropTypes.string,
+  // size: PropTypes.string,
+  // variant: PropTypes.string,
+
+};
+
 function Button({ children, color, className, ...props }) {
   var theme = useTheme();
 
@@ -76,12 +109,12 @@ function Button({ children, color, className, ...props }) {
     contained: {
       backgroundColor: getColor(color, theme),
       boxShadow: theme.customShadows.widget,
-      color: `${color ? "white" : theme.palette.text.primary} !important`,
-      "&:hover": {
-        backgroundColor: getColor(color, theme, "light"),
+      color: `${color ? 'white' : theme.palette.text.primary} !important`,
+      '&:hover': {
+        backgroundColor: getColor(color, theme, 'light'),
         boxShadow: theme.customShadows.widgetWide,
       },
-      "&:active": {
+      '&:active': {
         boxShadow: theme.customShadows.widgetWide,
       },
     },
@@ -91,7 +124,7 @@ function Button({ children, color, className, ...props }) {
     },
     select: {
       backgroundColor: theme.palette.primary.main,
-      color: "#fff",
+      color: '#fff',
     },
   });
 
@@ -123,7 +156,7 @@ export { Badge, Typography, Button };
 
 // ########################################################################
 
-function getColor(color, theme, brigtness = "main") {
+function getColor(color, theme, brigtness = 'main') {
   if (color && theme.palette[color] && theme.palette[color][brigtness]) {
     return theme.palette[color][brigtness];
   }
@@ -131,31 +164,31 @@ function getColor(color, theme, brigtness = "main") {
 
 function getFontWeight(style) {
   switch (style) {
-    case "light":
+    case 'light':
       return 300;
-    case "medium":
+    case 'medium':
       return 500;
-    case "bold":
+    case 'bold':
       return 600;
     default:
       return 400;
   }
 }
 
-function getFontSize(size, variant = "", theme) {
+function getFontSize(size, variant = '', theme) {
   var multiplier;
 
   switch (size) {
-    case "sm":
+    case 'sm':
       multiplier = 0.8;
       break;
-    case "md":
+    case 'md':
       multiplier = 1.5;
       break;
-    case "xl":
+    case 'xl':
       multiplier = 2;
       break;
-    case "xxl":
+    case 'xxl':
       multiplier = 3;
       break;
     default:
@@ -166,7 +199,7 @@ function getFontSize(size, variant = "", theme) {
   var defaultSize =
     variant && theme.typography[variant]
       ? theme.typography[variant].fontSize
-      : theme.typography.fontSize + "px";
+      : theme.typography.fontSize + 'px';
 
   return `calc(${defaultSize} * ${multiplier})`;
 }

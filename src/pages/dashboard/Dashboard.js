@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Grid,
   LinearProgress,
   Select,
   OutlinedInput,
   MenuItem,
-  Button
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/styles";
+  Button,
+} from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -20,26 +20,26 @@ import {
   Cell,
   YAxis,
   XAxis,
-} from "recharts";
+} from 'recharts';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // components
-import mock from "./mock";
-import Widget from "../../components/Widget";
-import PageTitle from "../../components/PageTitle";
-import { Typography } from "../../components/Wrappers";
-import Dot from "../../components/Sidebar/components/Dot";
-import Table from "./components/Table/Table";
-import BigStat from "./components/BigStat/BigStat";
+import mock from './mock';
+import Widget from '../../components/Widget';
+import PageTitle from '../../components/PageTitle';
+import { Typography } from '../../components/Wrappers';
+import Dot from '../../components/Sidebar/components/Dot';
+import Table from './components/Table/Table';
+import BigStat from './components/BigStat/BigStat';
 
 const mainChartData = getMainChartData();
 const PieChartData = [
-  { name: "Group A", value: 400, color: "primary" },
-  { name: "Group B", value: 300, color: "secondary" },
-  { name: "Group C", value: 300, color: "warning" },
-  { name: "Group D", value: 200, color: "success" },
+  { name: 'Group A', value: 400, color: 'primary' },
+  { name: 'Group B', value: 300, color: 'secondary' },
+  { name: 'Group C', value: 300, color: 'warning' },
+  { name: 'Group D', value: 200, color: 'success' },
 ];
 
 export default function Dashboard(props) {
@@ -47,17 +47,17 @@ export default function Dashboard(props) {
   var theme = useTheme();
 
   // local
-  var [mainChartState, setMainChartState] = useState("monthly");
+  var [mainChartState, setMainChartState] = useState('monthly');
 
   return (
     <>
       <PageTitle title="Dashboard" button={<Button
-      variant="contained"
-      size="medium"
-      color="secondary"
-    >
+        variant="contained"
+        size="medium"
+        color="secondary"
+      >
         Latest Reports
-    </Button>} />
+      </Button>} />
       <Grid container spacing={4}>
         <Grid item lg={3} md={4} sm={6} xs={12}>
           <Widget
@@ -67,32 +67,32 @@ export default function Dashboard(props) {
             className={classes.card}
           >
             <div className={classes.visitsNumberContainer}>
-              <Grid container item alignItems={"center"}>
+              <Grid container item alignItems={'center'}>
                 <Grid item xs={6}>
-              <Typography size="xl" weight="medium" noWrap>
+                  <Typography size="xl" weight="medium" noWrap>
                 12, 678
-              </Typography>
+                  </Typography>
                 </Grid>
                 <Grid item xs={6}>
-              <LineChart
-                width={100}
-                height={30}
-                data={[
-                  { value: 10 },
-                  { value: 15 },
-                  { value: 10 },
-                  { value: 17 },
-                  { value: 18 },
-                ]}
-              >
-                <Line
-                  type="natural"
-                  dataKey="value"
-                  stroke={theme.palette.success.main}
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
+                  <LineChart
+                    width={100}
+                    height={30}
+                    data={[
+                      { value: 10 },
+                      { value: 15 },
+                      { value: 10 },
+                      { value: 17 },
+                      { value: 18 },
+                    ]}
+                  >
+                    <Line
+                      type="natural"
+                      dataKey="value"
+                      stroke={theme.palette.success.main}
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </LineChart>
                 </Grid>
               </Grid>
             </div>
@@ -125,12 +125,22 @@ export default function Dashboard(props) {
         </Grid>
         <Grid item lg={3} md={8} sm={6} xs={12}>
           <Widget
-            title="App Performance"
+            title="System Logs"
             upperTitle
             className={classes.card}
             bodyClass={classes.fullHeightBody}
           >
             <div className={classes.performanceLegendWrapper}>
+              <div className={classes.legendElement}>
+                <Dot color="danger" />
+                <Typography
+                  color="text"
+                  colorBrightness="secondary"
+                  className={classes.legendElementText}
+                >
+                  Errors
+                </Typography>
+              </div>
               <div className={classes.legendElement}>
                 <Dot color="warning" />
                 <Typography
@@ -138,17 +148,17 @@ export default function Dashboard(props) {
                   colorBrightness="secondary"
                   className={classes.legendElementText}
                 >
-                  Integration
+                  Warnings
                 </Typography>
               </div>
               <div className={classes.legendElement}>
-                <Dot color="primary" />
+                <Dot color="success" />
                 <Typography
                   color="text"
                   colorBrightness="secondary"
                   className={classes.legendElementText}
                 >
-                  SDK
+                  Events
                 </Typography>
               </div>
             </div>
@@ -159,7 +169,7 @@ export default function Dashboard(props) {
                 colorBrightness="secondary"
                 className={classes.progressSectionTitle}
               >
-                Integration
+                Errors
               </Typography>
               <LinearProgress
                 variant="determinate"
@@ -175,7 +185,23 @@ export default function Dashboard(props) {
                 colorBrightness="secondary"
                 className={classes.progressSectionTitle}
               >
-                SDK
+                Warnings
+              </Typography>
+              <LinearProgress
+                variant="determinate"
+                value={73}
+                classes={{ barColorPrimary: classes.progressBarWarning }}
+                className={classes.progress}
+              />
+            </div>
+            <div>
+              <Typography
+                size="md"
+                color="text"
+                colorBrightness="success"
+                className={classes.progressSectionTitle}
+              >
+                Events
               </Typography>
               <LinearProgress
                 variant="determinate"
@@ -267,7 +293,7 @@ export default function Dashboard(props) {
             </div>
           </Widget>
         </Grid>
-        <Grid item lg={3} md={4} sm={6} xs={12}>
+        {/* <Grid item lg={3} md={4} sm={6} xs={12}>
           <Widget title="Revenue Breakdown" upperTitle className={classes.card}>
             <Grid container spacing={2}>
               <Grid item xs={6}>
@@ -306,7 +332,7 @@ export default function Dashboard(props) {
               </Grid>
             </Grid>
           </Widget>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <Widget
             bodyClass={classes.mainChartBody}
@@ -367,14 +393,14 @@ export default function Dashboard(props) {
               >
                 <YAxis
                   ticks={[0, 2500, 5000, 7500]}
-                  tick={{ fill: theme.palette.text.hint + "80", fontSize: 14 }}
-                  stroke={theme.palette.text.hint + "80"}
+                  tick={{ fill: theme.palette.text.hint + '80', fontSize: 14 }}
+                  stroke={theme.palette.text.hint + '80'}
                   tickLine={false}
                 />
                 <XAxis
                   tickFormatter={i => i + 1}
-                  tick={{ fill: theme.palette.text.hint + "80", fontSize: 14 }}
-                  stroke={theme.palette.text.hint + "80"}
+                  tick={{ fill: theme.palette.text.hint + '80', fontSize: 14 }}
+                  stroke={theme.palette.text.hint + '80'}
                   tickLine={false}
                 />
                 <Area

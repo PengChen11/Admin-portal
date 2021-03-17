@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Collapse,
   Divider,
@@ -7,16 +7,28 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-} from "@material-ui/core";
-import { Inbox as InboxIcon } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import classnames from "classnames";
+} from '@material-ui/core';
+import { Inbox as InboxIcon } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // components
-import Dot from "../Dot";
+import Dot from '../Dot';
+
+import PropTypes from 'prop-types';
+SidebarLink.propTypes = {
+  link: PropTypes.string,
+  icon: PropTypes.object,
+  label: PropTypes.string,
+  children: PropTypes.object,
+  location: PropTypes.object,
+  isSidebarOpened: PropTypes.bool,
+  nested: PropTypes.string,
+  type: PropTypes.string,
+};
 
 export default function SidebarLink({
   link,
@@ -36,7 +48,7 @@ export default function SidebarLink({
     link &&
     (location.pathname === link || location.pathname.indexOf(link) !== -1);
 
-  if (type === "title")
+  if (type === 'title')
     return (
       <Typography
         className={classnames(classes.linkText, classes.sectionTitle, {
@@ -47,7 +59,7 @@ export default function SidebarLink({
       </Typography>
     );
 
-  if (type === "divider") return <Divider className={classes.divider} />;
+  if (type === 'divider') return <Divider className={classes.divider} />;
 
   if (!children)
     return (
@@ -69,7 +81,7 @@ export default function SidebarLink({
             [classes.linkIconActive]: isLinkActive,
           })}
         >
-          {nested ? <Dot color={isLinkActive && "primary"} /> : icon}
+          {nested ? <Dot color={isLinkActive && 'primary'} /> : icon}
         </ListItemIcon>
         <ListItemText
           classes={{
