@@ -13,6 +13,12 @@ import PageTitle from '../../components/PageTitle';
 import NotificationCustomComponent from '../../components/Notification';
 import { Typography, Button } from '../../components/Wrappers';
 
+import PropTypes from 'prop-types';
+CloseButton.propTypes = {
+  className: PropTypes.string,
+  closeToast: PropTypes.string, 
+};
+
 const CloseButton = ({ closeToast, className }) => (
   <CloseIcon
     className={className}
@@ -20,6 +26,12 @@ const CloseButton = ({ closeToast, className }) => (
   />
 );
 
+NotificationsPage.propTypes = {
+  classes: PropTypes.string,
+  changeNotificationPosition: PropTypes.func,
+  notificationsPosition: PropTypes.number,
+  handleNotificationCall: PropTypes.func,
+};
 const NotificationsPage = ({ classes, ...props}) => (
   <React.Fragment>
     <PageTitle title="Notifications" />
@@ -169,7 +181,7 @@ const styles = (theme) => ({
     width: 400,
     marginTop: theme.spacing.unit * 6,
     right: 0,
-  }
+  },
 });
 
 export default withStyles(styles, { withTheme: true})(NotificationsPage);

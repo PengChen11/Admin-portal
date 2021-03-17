@@ -1,13 +1,13 @@
-import React from "react";
-import { Grid, Paper, Typography, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import classnames from "classnames";
+import React from 'react';
+import { Grid, Paper, Typography, Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // logo
-import logo from "./logo.svg";
+import logo from './logo.svg';
 
 export default function Error() {
   var classes = useStyles();
@@ -17,7 +17,7 @@ export default function Error() {
       <div className={classes.logotype}>
         <img className={classes.logotypeIcon} src={logo} alt="logo" />
         <Typography variant="h3" color="white" className={classes.logotypeText}>
-          Material Admin
+          Admin Portal
         </Typography>
       </div>
       <Paper classes={{ root: classes.paperRoot }}>
@@ -29,7 +29,7 @@ export default function Error() {
           404
         </Typography>
         <Typography variant="h5" color="primary" className={classes.textRow}>
-          Oops. Looks like the page you're looking for no longer exists
+          Oops. Looks like the page you&apos;re looking for no longer exists
         </Typography>
         <Typography
           variant="h6"
@@ -37,7 +37,7 @@ export default function Error() {
           colorBrightness="secondary"
           className={classnames(classes.textRow, classes.safetyText)}
         >
-          But we're here to bring you back to safety
+          But we&apos;re here to bring you back to safety
         </Typography>
         <Button
           variant="contained"

@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "@material-ui/core";
+import React from 'react';
+import { Button } from '@material-ui/core';
 import {
   NotificationsNone as NotificationsIcon,
   ThumbUp as ThumbUpIcon,
@@ -14,19 +14,19 @@ import {
   AccountBox as CustomerIcon,
   Done as ShippedIcon,
   Publish as UploadIcon,
-} from "@material-ui/icons";
-import { useTheme } from "@material-ui/styles";
-import classnames from "classnames";
-import tinycolor from "tinycolor2";
+} from '@material-ui/icons';
+import { useTheme } from '@material-ui/styles';
+import classnames from 'classnames';
+import tinycolor from 'tinycolor2';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // components
-import { Typography } from "../Wrappers";
+import { Typography } from '../Wrappers';
 
 const typesIcons = {
-  "e-commerce": <ShoppingCartIcon />,
+  'e-commerce': <ShoppingCartIcon />,
   notification: <NotificationsIcon />,
   offer: <TicketIcon />,
   info: <ThumbUpIcon />,
@@ -41,6 +41,21 @@ const typesIcons = {
   disc: <DiscIcon />,
 };
 
+import PropTypes from 'prop-types';
+Notification.propTypes = {
+  variant: PropTypes.string,
+  type: PropTypes.string,
+  color: PropTypes.string,
+  className: PropTypes.string,
+  shadowless: PropTypes.bool,
+  typographyVariant: PropTypes.string,
+  message: PropTypes.string,
+  extraButton: PropTypes.string,
+  extraButtonClick: PropTypes.string,
+
+};
+
+
 export default function Notification({ variant, ...props }) {
   var classes = useStyles();
   var theme = useTheme();
@@ -52,7 +67,7 @@ export default function Notification({ variant, ...props }) {
     },
     style: {
       color:
-        variant !== "contained" &&
+        variant !== 'contained' &&
         theme.palette[props.color] &&
         theme.palette[props.color].main,
     },
@@ -61,24 +76,24 @@ export default function Notification({ variant, ...props }) {
   return (
     <div
       className={classnames(classes.notificationContainer, props.className, {
-        [classes.notificationContained]: variant === "contained",
+        [classes.notificationContained]: variant === 'contained',
         [classes.notificationContainedShadowless]: props.shadowless,
       })}
       style={{
         backgroundColor:
-          variant === "contained" &&
+          variant === 'contained' &&
           theme.palette[props.color] &&
           theme.palette[props.color].main,
       }}
     >
       <div
         className={classnames(classes.notificationIconContainer, {
-          [classes.notificationIconContainerContained]: variant === "contained",
-          [classes.notificationIconContainerRounded]: variant === "rounded",
+          [classes.notificationIconContainerContained]: variant === 'contained',
+          [classes.notificationIconContainerRounded]: variant === 'rounded',
         })}
         style={{
           backgroundColor:
-            variant === "rounded" &&
+            variant === 'rounded' &&
             theme.palette[props.color] &&
             tinycolor(theme.palette[props.color].main)
               .setAlpha(0.15)
@@ -90,10 +105,10 @@ export default function Notification({ variant, ...props }) {
       <div className={classes.messageContainer}>
         <Typography
           className={classnames({
-            [classes.containedTypography]: variant === "contained",
+            [classes.containedTypography]: variant === 'contained',
           })}
           variant={props.typographyVariant}
-          size={variant !== "contained" && !props.typographyVariant && "md"}
+          size={variant !== 'contained' && !props.typographyVariant && 'md'}
         >
           {props.message}
         </Typography>
@@ -112,6 +127,6 @@ export default function Notification({ variant, ...props }) {
 }
 
 // ####################################################################
-function getIconByType(type = "offer") {
+function getIconByType(type = 'offer') {
   return typesIcons[type];
 }

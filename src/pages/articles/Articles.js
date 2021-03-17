@@ -37,22 +37,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Tables() {
+export default function Articles() {
   const classes = useStyles();
   return (
     <>
-      <PageTitle title="Tables" />
+      <PageTitle title="Articles List" />
       <Grid container spacing={4}>
         <Grid item xs={12}>
           <MUIDataTable
             title="Employee List"
             data={datatableData}
-            columns={['Name', 'Company', 'City', 'State']}
+            columns={['Title', 'Date', 'Category']}
             options={{
               filterType: 'checkbox',
             }}
           />
         </Grid>
+        
         <Grid item xs={12}>
           <Widget title="Material-UI Table" upperTitle noBodyPadding bodyClass={classes.tableOverflow}>
             <Table data={mock.table} />

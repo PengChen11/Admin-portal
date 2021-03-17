@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 // styles
-import useStyles from "./styles";
+import useStyles from './styles';
 
 // components
-import { Typography } from "../Wrappers";
+import { Typography } from '../Wrappers';
 
 export default function PageTitle(props) {
   var classes = useStyles();
@@ -18,3 +18,9 @@ export default function PageTitle(props) {
     </div>
   );
 }
+
+import PropTypes from 'prop-types';
+PageTitle.propTypes = {
+  title: PropTypes.string,
+  button: PropTypes.object,
+};

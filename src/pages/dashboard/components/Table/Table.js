@@ -1,18 +1,23 @@
-import React from "react";
+import React from 'react';
 import {
   Table,
   TableRow,
   TableHead,
   TableBody,
   TableCell,
-  Chip
-} from "@material-ui/core";
-import useStyles from "../../styles";
+  Chip,
+} from '@material-ui/core';
+import useStyles from '../../styles';
 
 const states = {
-  sent: "success",
-  pending: "warning",
-  declined: "secondary",
+  sent: 'success',
+  pending: 'warning',
+  declined: 'secondary',
+};
+
+import PropTypes from 'prop-types';
+TableComponent.propTypes = {
+  data: PropTypes.array,
 };
 
 export default function TableComponent({ data }) {

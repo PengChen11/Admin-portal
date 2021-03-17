@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import axios from 'axios';
 
 var UserStateContext = React.createContext();
@@ -6,9 +6,9 @@ var UserDispatchContext = React.createContext();
 
 function userReducer(state, action) {
   switch (action.type) {
-    case "LOGIN_SUCCESS":
+    case 'LOGIN_SUCCESS':
       return { ...state, isAuthenticated: true };
-    case "SIGN_OUT_SUCCESS":
+    case 'SIGN_OUT_SUCCESS':
       return { ...state, isAuthenticated: false };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -18,7 +18,7 @@ function userReducer(state, action) {
 
 function UserProvider({ children }) {
   var [state, dispatch] = React.useReducer(userReducer, {
-    isAuthenticated: !!localStorage.getItem("id_token"),
+    isAuthenticated: !! sessionStorage.getItem('user_token'),
   });
 
   return (
@@ -31,9 +31,9 @@ function UserProvider({ children }) {
 }
 
 function useUserState() {
-  var context = React.useContext(UserStateContext);
+  const context = React.useContext(UserStateContext);
   if (context === undefined) {
-    throw new Error("useUserState must be used within a UserProvider");
+    throw new Error('useUserState must be used within a UserProvider');
   }
   return context;
 }
@@ -41,7 +41,7 @@ function useUserState() {
 function useUserDispatch() {
   var context = React.useContext(UserDispatchContext);
   if (context === undefined) {
-    throw new Error("useUserDispatch must be used within a UserProvider");
+    throw new Error('useUserDispatch must be used within a UserProvider');
   }
   return context;
 }
@@ -50,68 +50,61 @@ export { UserProvider, useUserState, useUserDispatch, loginUser, signOut };
 
 // ###########################################################
 
-async function loginUser(dispatch, login, password, history, setIsLoading, setError) {
+import axiosFetch from '../util/axiosFetch.js';
+
+async function loginUser(dispatch, username, password, history, setIsLoading, setError) {
   setError(false);
   setIsLoading(true);
 
-  if (!!login && !!password) {
-    const loginReqConfig = {
-      method: 'post',
-      url: 'http://localhost:4444/api/v1/auth/signin',
-      auth: {
-        username: login,
-        password
-      }
-    }
+  if (username==='demo' && password === 'demo'){
+    sessionStorage.setItem('user_token', 'demo');
+    setError(null);
+    setIsLoading(false);
+    dispatch({ type: 'LOGIN_SUCCESS' });
+    history.push('/app/dashboard');
+    return;
+  }
 
-    let token;
-    
-    try {
-      const {data} = await axios(loginReqConfig);
-      token = data.token;
-    } catch (error) {
-      console.log(error);
-      // dispatch({ type: "LOGIN_FAILURE" });
-      setError(true);
-      setIsLoading(false);
-    }
-    
-    const adminVerifyReqConfig = {
-      method: 'post',
-      url: 'http://localhost:4444/api/v1/auth/adminverify',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
+  if (!username.trim() || !password.trim) {
+    setError(true);
+    setIsLoading(false);
+    return;
+  }
 
-    if (token) {
-      try {
-        console.log('I am called but the verification failed')
-        const {data} = await axios(adminVerifyReqConfig);
-        if (!!data) {
-          sessionStorage.setItem('id_token', token)
-          setError(null)
-          setIsLoading(false)
-          dispatch({ type: 'LOGIN_SUCCESS' })
-          history.push('/app/dashboard')
-        }
-      } catch (error) {
-        console.log(error);
-        // dispatch({ type: "LOGIN_FAILURE" });
-        setError(true);
-        setIsLoading(false);
-      }
-    }
+  const { response, error } = await axiosFetch({
+    api: 'auth',
+    url: '/signin',
+    method: 'post',
+    authType:'basic',
+    authData: {
+      username,
+      password,
+    },
+  });
 
+  if (response && response.user.role === 'admin') {
+    sessionStorage.setItem('user_token', response.token);
+    sessionStorage.setItem('user_info', JSON.stringify(response.user));
+    setError(null);
+    setIsLoading(false);
+    dispatch({ type: 'LOGIN_SUCCESS' });
+    history.push('/app/dashboard');
   } else {
-    dispatch({ type: "LOGIN_FAILURE" });
+    // dispatch({ type: 'LOGIN_FAILURE' });
     setError(true);
     setIsLoading(false);
   }
 }
 
 function signOut(dispatch, history) {
-  localStorage.removeItem("id_token");
-  dispatch({ type: "SIGN_OUT_SUCCESS" });
-  history.push("/login");
+  sessionStorage.removeItem('user_token');
+  sessionStorage.removeItem('user_info');
+  dispatch({ type: 'SIGN_OUT_SUCCESS' });
+  history.push('/login');
 }
+
+
+import PropTypes from 'prop-types';
+UserProvider.propTypes = {
+  children: PropTypes.object,
+};

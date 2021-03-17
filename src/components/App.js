@@ -1,22 +1,22 @@
-import React from "react";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import React from 'react';
+import { HashRouter, Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 
 // components
-import Layout from "./Layout";
+import Layout from './Layout';
 
 // pages
-import Error from "../pages/error";
-import Login from "../pages/login";
+import Error from '../pages/error';
+import Login from '../pages/login';
 
 // context
-import { useUserState } from "../context/UserContext";
+import { useUserState } from '../context/UserContext';
 
 export default function App() {
   // global
-  var { isAuthenticated } = useUserState();
+  const { isAuthenticated } = useUserState();
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/app/dashboard" />} />
         <Route
@@ -28,7 +28,7 @@ export default function App() {
         <PublicRoute path="/login" component={Login} />
         <Route component={Error} />
       </Switch>
-    </HashRouter>
+    </BrowserRouter>
   );
 
   // #######################################################################
@@ -43,7 +43,7 @@ export default function App() {
           ) : (
             <Redirect
               to={{
-                pathname: "/login",
+                pathname: '/login',
                 state: {
                   from: props.location,
                 },
@@ -63,7 +63,7 @@ export default function App() {
           isAuthenticated ? (
             <Redirect
               to={{
-                pathname: "/",
+                pathname: '/',
               }}
             />
           ) : (
@@ -74,3 +74,9 @@ export default function App() {
     );
   }
 }
+
+import PropTypes from 'prop-types';
+App.propTypes = {
+  component: PropTypes.object,
+  location: PropTypes.string,
+};

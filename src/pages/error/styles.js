@@ -1,40 +1,43 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from '@material-ui/styles';
 
 export default makeStyles(theme => ({
   container: {
-    height: "100vh",
-    width: "100vw",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    height: '100vh',
+    width: '100vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: theme.palette.primary.main,
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
   },
   logotype: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     marginBottom: theme.spacing(12),
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
+    flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
   logotypeText: {
     fontWeight: 500,
-    color: "white",
-    marginLeft: theme.spacing(2),
+    color: 'white',
+    // marginLeft: theme.spacing(1),
+
   },
   logotypeIcon: {
-    width: 70,
+    width: '50%',
     marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(5),
   },
   paperRoot: {
     boxShadow: theme.customShadows.widgetDark,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
     paddingLeft: theme.spacing(6),
@@ -43,7 +46,7 @@ export default makeStyles(theme => ({
   },
   textRow: {
     marginBottom: theme.spacing(10),
-    textAlign: "center",
+    textAlign: 'center',
   },
   errorCode: {
     fontSize: 148,
@@ -55,7 +58,7 @@ export default makeStyles(theme => ({
   },
   backButton: {
     boxShadow: theme.customShadows.widget,
-    textTransform: "none",
+    textTransform: 'none',
     fontSize: 22,
   },
 }));
