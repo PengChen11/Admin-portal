@@ -2,12 +2,9 @@ import React from 'react';
 import {
   Route,
   Switch,
-  // Redirect,
   withRouter,
 } from 'react-router-dom';
 import classnames from 'classnames';
-// import {Box, IconButton, Link} from '@material-ui/core'
-// import Icon from '@mdi/react'
 
 
 // styles
@@ -19,16 +16,13 @@ import Sidebar from '../Sidebar';
 
 // pages
 import Dashboard from '../../pages/dashboard';
-// import Typography from "../../pages/typography";
 import Notifications from '../../pages/notifications';
-// import Maps from "../../pages/maps";
-import Tables from '../../pages/tables';
+import Users from '../../pages/users';
 import Articles from '../../pages/articles';
 import ArticlePost from '../../pages/articlePost';
 import Projects from '../../pages/projects';
 import ProjectPost from '../../pages/projectPost';
-// import Icons from "../../pages/icons";
-// import Charts from "../../pages/charts";
+
 
 // context
 import { useLayoutState } from '../../context/LayoutContext';
@@ -52,7 +46,7 @@ function Layout(props) {
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/dashboard" component={Dashboard} />
-            <Route path="/app/users" component={Tables} />
+            <Route path="/app/users" component={Users} />
             <Route path="/app/logs" component={Notifications} />
             <Route path="/app/blog/articles" component={Articles} />
             <Route path="/app/blog/post" component={ArticlePost} />
