@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 var UserStateContext = React.createContext();
 var UserDispatchContext = React.createContext();
@@ -71,7 +70,7 @@ async function loginUser(dispatch, username, password, history, setIsLoading, se
     return;
   }
 
-  const { response, error } = await axiosFetch({
+  const { response, errorObj } = await axiosFetch({
     api: 'auth',
     url: '/signin',
     method: 'post',
